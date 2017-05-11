@@ -3,19 +3,15 @@
 WORKER_PID=''
 
 handle_sig_term(){
-    echo "[Shell] SIGTERM received, time to leave."
-    exit
+    echo "[Shell] SIGTERM received, informing python script"
+    kill -TERM $WORKER_PID
+    wait $WORKER_PID
 }
 
 trap 'handle_sig_term' TERM
 
 I=0
 
-echo "[Shell] Waiting for SIGTERM"
-while [[ 1 ]]; do
-    echo "[Shell] Hello, $I"
-    let I=$I+1
-    sleep 1
-done
-
-echo "[Shell] This line will not be shown"
+echo "[Shell] Starting python script"
+python test.py & WORKER_PID=$!
+wait $WORKER_PID

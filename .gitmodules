@@ -1,0 +1,3 @@
+[submodule "docker-python-signal"]
+	path = docker-python-signal
+	url = https://github.com/husjon/docker-python-signal.git
